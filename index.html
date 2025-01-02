@@ -134,8 +134,8 @@
 
             document.getElementById('add-data').addEventListener('click', () => {
                 const date = document.getElementById('date').value;
-                const amount = parseFloat(document.getElementById('amount').value);
-                const returnAmount = parseFloat(document.getElementById('return').value);
+                const amount = parseFloat(document.getElementById('amount').value) || 0;
+                const returnAmount = parseFloat(document.getElementById('return').value) || 0;
                 const profit = returnAmount - amount;
                 const rate = (amount === 0) ? 0 : (returnAmount / amount * 100).toFixed(2);
 
@@ -163,27 +163,27 @@
             });
 
             function calculateTotals() {
-    let totalAmount = 0;
-    let totalReturn = 0;
-    let totalProfit = 0;
+                let totalAmount = 0;
+                let totalReturn = 0;
+                let totalProfit = 0;
 
-    const rows = document.getElementById('data-table').getElementsByTagName('tbody')[0].rows;
-    for (let row of rows) {
-        totalAmount += parseFloat(row.cells[4].innerText);
-        totalReturn += parseFloat(row.cells[5].innerText);
-        totalProfit += parseFloat(row.cells[6].innerText);
-    }
+                const rows = document.getElementById('data-table').getElementsByTagName('tbody')[0].rows;
+                for (let row of rows) {
+                    totalAmount += parseFloat(row.cells[4].innerText) || 0;
+                    totalReturn += parseFloat(row.cells[5].innerText) || 0;
+                    totalProfit += parseFloat(row.cells[6].innerText) || 0;
+                }
 
-    document.getElementById('total-amount').innerText = totalAmount;
-    document.getElementById('total-return').innerText = totalReturn;
-    const totalProfitElement = document.getElementById('total-profit');
-    totalProfitElement.innerText = totalProfit;
-    if (totalProfit < 0) {
-        totalProfitElement.classList.add('red');
-    } else {
-        totalProfitElement.classList.remove('red');
-    }
-    document.getElementById('total-rate').innerText = (totalAmount === 0) ? '0%' : ((totalReturn / totalAmount) * 100).toFixed(2) + '%';
+                document.getElementById('total-amount').innerText = totalAmount;
+document.getElementById('total-return').innerText = totalReturn;
+const totalProfitElement = document.getElementById('total-profit');
+totalProfitElement.innerText = totalProfit;
+if (totalProfit < 0) {
+    totalProfitElement.classList.add('red');
+} else {
+    totalProfitElement.classList.remove('red');
+}
+document.getElementById('total-rate').innerText = (totalAmount === 0) ? '0%' : ((totalReturn / totalAmount) * 100).toFixed(2) + '%';
 }
 
 document.getElementById('export-csv').addEventListener('click', () => {
@@ -283,10 +283,8 @@ function loadData() {
 }
 
 // ページロード時にデータを読み込み
-// ページロード時にデータを読み込み
 loadData();
         });
     </script>
 </body>
 </html>
-
